@@ -103,7 +103,7 @@ const [history, setHistory] = useState<SupplyEvent[]>([]);
                 className="border p-4 rounded shadow bg-white"
               >
                 <p>
-                  <span className="font-semibold">Step:</span> {event.event}
+                  <span className="font-semibold">Step:</span> {event.step}
                 </p>
                 <p>
                   <span className="font-semibold">Role:</span> {event.role}
