@@ -9,7 +9,12 @@ export default function TracePage() {
   const initialBatchId = searchParams.get("batchId") || "";
 
   const [batchId, setBatchId] = useState(initialBatchId);
-  const [history, setHistory] = useState<any[]>([]);
+interface SupplyEvent {
+  step: string;
+  location?: string;
+  timestamp: string;
+}
+const [history, setHistory] = useState<SupplyEvent[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
