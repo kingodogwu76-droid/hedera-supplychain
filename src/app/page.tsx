@@ -4,8 +4,12 @@ import { useState } from "react";
 
 export default function Home() {
   const [batchId, setBatchId] = useState("FARM-001");
-  const [role, setRole] = useState<"farmer" | "distributor" | "retailer">("farmer");
-  const [event, setEvent] = useState<"harvested" | "shipped" | "arrived" | "stocked">("harvested");
+  const [role, setRole] = useState<"farmer" | "distributor" | "retailer">(
+    "farmer"
+  );
+  const [event, setEvent] = useState<
+    "harvested" | "shipped" | "arrived" | "stocked"
+  >("harvested");
   const [location, setLocation] = useState("");
   const [notes, setNotes] = useState("");
   const [status, setStatus] = useState("");
@@ -44,10 +48,7 @@ export default function Home() {
             <input
               className="border rounded-xl p-2"
               value={batchId}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-  setBatchId(e.target.value)
-}
-
+              onChange={(e) => setBatchId(e.target.value)}
               placeholder="FARM-001"
               required
             />
@@ -56,54 +57,49 @@ export default function Home() {
           <label className="flex flex-col">
             <span className="text-sm text-gray-600 mb-1">Role</span>
             <select
-  className="border rounded-xl p-2"
-  value={role}
-  onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-    setRole(e.target.value as "farmer" | "distributor" | "retailer")
-  }
->
-  <option value="farmer">farmer</option>
-  <option value="distributor">distributor</option>
-  <option value="retailer">retailer</option>
-</select>
+              className="border rounded-xl p-2"
+              value={role}
+              onChange={(e) => setRole(e.target.value as any)}
+            >
+              <option value="farmer">farmer</option>
+              <option value="distributor">distributor</option>
+              <option value="retailer">retailer</option>
+            </select>
           </label>
 
           <label className="flex flex-col">
             <span className="text-sm text-gray-600 mb-1">Event</span>
             <select
-  className="border rounded-xl p-2"
-  value={event}
-  onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-    setEvent(e.target.value as "harvested" | "shipped" | "arrived" | "stocked")
-  }
->
-  <option value="harvested">harvested</option>
-  <option value="shipped">shipped</option>
-  <option value="arrived">arrived</option>
-  <option value="stocked">stocked</option>
-</select>
+              className="border rounded-xl p-2"
+              value={event}
+              onChange={(e) => setEvent(e.target.value as any)}
+            >
+              <option value="harvested">harvested</option>
+              <option value="shipped">shipped</option>
+              <option value="arrived">arrived</option>
+              <option value="stocked">stocked</option>
+            </select>
           </label>
 
           <label className="flex flex-col">
             <span className="text-sm text-gray-600 mb-1">Location (optional)</span>
             <input
-  className="border rounded-xl p-2"
-  value={location}
-  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLocation(e.target.value)}
-  placeholder="Village X"
-/>
+              className="border rounded-xl p-2"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              placeholder="Village X"
+            />
           </label>
         </div>
 
         <label className="flex flex-col">
           <span className="text-sm text-gray-600 mb-1">Notes (optional)</span>
           <textarea
-            cla<textarea
-  className="border rounded-xl p-2"
-  value={notes}
-  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setNotes(e.target.value)}
-  placeholder="Quality checked, organic, etc."
-/>
+            className="border rounded-xl p-2"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            placeholder="Quality checked, organic, etc."
+          />
         </label>
 
         <button
