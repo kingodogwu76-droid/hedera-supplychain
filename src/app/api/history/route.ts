@@ -34,8 +34,9 @@ export async function GET(req: NextRequest) {
     );
 
     return NextResponse.json({ batchId, history: messages });
-  } catch (err: any) {
-    console.error("❌ Error fetching history:", err);
-    return NextResponse.json({ error: err.message }, { status: 500 });
-  }
+  } catch (err: unknown) {
+  return NextResponse.json(
+    { error: err instanceof Error ? err.message : "Unknown error" },
+    { status: 500 }
+  );
 }
