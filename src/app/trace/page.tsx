@@ -9,16 +9,10 @@ export default function TracePage() {
   const initialBatchId = searchParams.get("batchId") || "";
 
   const [batchId, setBatchId] = useState(initialBatchId);
-interface SupplyEvent {
-  step: string;
-  location?: string;
-  timestamp: string;
-}
-const [history, setHistory] = useState<SupplyEvent[]>([]);
+  const [history, setHistory] = useState<{ step: string; location: string; timestamp: string }[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // 🔄 Fetch history
   const fetchHistory = async (id: string) => {
     if (!id) return;
     setLoading(true);
@@ -29,13 +23,7 @@ const [history, setHistory] = useState<SupplyEvent[]>([]);
       if (data.error) {
         setError(data.error);
       } else {
-        // sort newest → oldest
-        setHistory(
-          data.history.sort(
-            (a: any, b: any) =>
-              new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-          )
-        );
+        setHistory(data.history);
       }
     } catch (err: any) {
       setError(err.message);
@@ -43,7 +31,6 @@ const [history, setHistory] = useState<SupplyEvent[]>([]);
     setLoading(false);
   };
 
-  // ✅ Auto-load if batchId comes from query
   useEffect(() => {
     if (initialBatchId) {
       fetchHistory(initialBatchId);
@@ -54,7 +41,6 @@ const [history, setHistory] = useState<SupplyEvent[]>([]);
     <div className="p-6 max-w-2xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">🌱 Supply Chain Trace</h1>
 
-      {/* Input + button */}
       <div className="flex gap-2 mb-6">
         <input
           type="text"
@@ -72,7 +58,6 @@ const [history, setHistory] = useState<SupplyEvent[]>([]);
         </button>
       </div>
 
-      {/* ✅ QR Code */}
       {batchId && (
         <div className="mb-6 text-center">
           <p className="mb-2 font-semibold">🔗 Share this Batch</p>
@@ -81,44 +66,27 @@ const [history, setHistory] = useState<SupplyEvent[]>([]);
             size={180}
             className="mx-auto"
           />
-          <p className="text-sm text-gray-500 mt-2">
-            Scan to view Batch {batchId}
-          </p>
+          <p className="text-sm text-gray-500 mt-2">Scan to view Batch {batchId}</p>
         </div>
       )}
 
       {error && <p className="text-red-600">❌ {error}</p>}
 
-      {/* Timeline */}
       <div>
         {history.length === 0 ? (
-          <p className="text-gray-500">
-            No history yet for {batchId || "this batch"}
-          </p>
+          <p className="text-gray-500">No history yet for {batchId || "this batch"}</p>
         ) : (
           <ul className="space-y-4">
             {history.map((event, idx) => (
-              <li
-                key={idx}
-                className="border p-4 rounded shadow bg-white"
-              >
+              <li key={idx} className="border p-4 rounded shadow">
                 <p>
-                  <span className="font-semibold">Step:</span> {event.step}
+                  <span className="font-semibold">Step:</span> {event.step || "unknown"}
                 </p>
                 <p>
-                  <span className="font-semibold">Role:</span> {event.role}
+                  <span className="font-semibold">Location:</span> {event.location || "N/A"}
                 </p>
                 <p>
-                  <span className="font-semibold">Location:</span>{" "}
-                  {event.location || "N/A"}
-                </p>
-                <p>
-                  <span className="font-semibold">Notes:</span>{" "}
-                  {event.notes || "—"}
-                </p>
-                <p className="text-sm text-gray-500">
-                  <span className="font-semibold">Timestamp:</span>{" "}
-                  {event.timestamp}
+                  <span className="font-semibold">Timestamp:</span> {event.timestamp}
                 </p>
               </li>
             ))}
