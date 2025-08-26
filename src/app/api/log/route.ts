@@ -43,8 +43,12 @@ export async function POST(req: Request) {
       status: receipt.status.toString(),
       message,
     });
-  } catch (err: any) {
-    console.error(err);
-    return NextResponse.json({ error: err.message }, { status: 500 });
-  }
+    
+} catch (err: unknown) {
+  console.error(err);
+  return NextResponse.json(
+    { error: err instanceof Error ? err.message : "Unknown error" },
+    { status: 500 }
+  );
+}
 }
