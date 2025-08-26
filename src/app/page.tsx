@@ -44,7 +44,10 @@ export default function Home() {
             <input
               className="border rounded-xl p-2"
               value={batchId}
-              onChange={(e) => setBatchId(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+  setBatchId(e.target.value)
+}
+
               placeholder="FARM-001"
               required
             />
@@ -55,7 +58,10 @@ export default function Home() {
             <select
               className="border rounded-xl p-2"
               value={role}
-              onChange={(e) => setRole(e.target.value as any)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+  setRole(e.target.value)
+}
+
             >
               <option value="farmer">farmer</option>
               <option value="distributor">distributor</option>
@@ -68,7 +74,9 @@ export default function Home() {
             <select
               className="border rounded-xl p-2"
               value={event}
-              onChange={(e) => setEvent(e.target.value as any)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+  setEvent(e.target.value)
+}
             >
               <option value="harvested">harvested</option>
               <option value="shipped">shipped</option>
@@ -82,7 +90,9 @@ export default function Home() {
             <input
               className="border rounded-xl p-2"
               value={location}
-              onChange={(e) => setLocation(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+  setLocation(e.target.value)
+}
               placeholder="Village X"
             />
           </label>
@@ -93,7 +103,9 @@ export default function Home() {
           <textarea
             className="border rounded-xl p-2"
             value={notes}
-            onChange={(e) => setNotes(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+  setNotes(e.target.value)
+}
             placeholder="Quality checked, organic, etc."
           />
         </label>
